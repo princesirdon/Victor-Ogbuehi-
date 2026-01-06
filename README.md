@@ -1,8 +1,36 @@
+# COMP5002 – Security Operations & Incident Management  
+## Coursework 2 – BOTSv3 Incident Analysis and Presentation  
+### Student: Victor  
+### Module Leader: Dr Ji Jian Chin  
+### Institution: University of Plymouth  
+### Date: December 2025  
+
+
+# BOTSv3 Incident Analysis – Frothly Brewery  
+## Splunk Investigation Report  
+
+
+This report has been prepared as part of the COMP5002 Security Operations & Incident Management module under the guidance of Module Leader Dr Ji Jian Chin. It documents my investigation of the Boss of the SOC v3 (BOTSv3) dataset using Splunk Enterprise, following industry-standard SOC workflows and incident handling methodologies.
+
+The report includes:
+- A structured analysis of the simulated Frothly Brewery cyber incident  
+- Reflections on SOC roles, responsibilities, and incident response processes  
+- Documentation of Splunk installation, dataset ingestion, and validation  
+- Detailed answers to the BOTSv3 300‑level questions using SPL queries  
+- Screenshots and evidence demonstrating investigative steps  
+- A summary of key findings and lessons learned  
+
+This work is supported by a public GitHub repository showing continuous improvement over four weeks, and a 10‑minute video presentation summarising the investigation and demonstrating Splunk queries.
+
+
+---
+
+# 1. Introduction
 # BOTSv3 Incident Analysis – Frothly Brewery  
 ### COMP5002 – Security Operations & Incident Management  
 ### Coursework 2 – Splunk Investigation Report  
 ### Author: Victor  
-### Date: January 2026  
+### Date: December 2025 
 
 ---
 
