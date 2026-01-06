@@ -139,6 +139,7 @@ I validated ingestion by running:
 
 ```spl
 index=botsv3 | stats count by sourcetype
+
 ## 5.1 Conclusion
 
 This investigation of the BOTSv3 dataset provided a realistic, end‑to‑end simulation of Security Operations Centre (SOC) workflows. By analysing logs from email, endpoint, cloud, and network sources, it was possible to reconstruct the attacker’s actions across multiple stages of the cyber kill chain. The exercise demonstrated how a single malicious email can escalate into credential compromise, persistence, lateral movement, and data manipulation when detection and response controls are insufficient.
