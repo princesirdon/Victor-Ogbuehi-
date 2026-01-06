@@ -139,3 +139,81 @@ I validated ingestion by running:
 
 ```spl
 index=botsv3 | stats count by sourcetype
+## 5.1 Conclusion
+
+This investigation of the BOTSv3 dataset provided a realistic, end‑to‑end simulation of Security Operations Centre (SOC) workflows. By analysing logs from email, endpoint, cloud, and network sources, it was possible to reconstruct the attacker’s actions across multiple stages of the cyber kill chain. The exercise demonstrated how a single malicious email can escalate into credential compromise, persistence, lateral movement, and data manipulation when detection and response controls are insufficient.
+
+Key findings include:
+- The attack relied heavily on social engineering, highlighting the importance of user awareness and strong email filtering.
+- Cloud and endpoint logs were essential for identifying malicious file uploads, suspicious processes, and unauthorised user creation.
+- Correlation across multiple log sources was critical for understanding attacker movement and intent.
+- SPL queries enabled precise detection of malicious activity that would otherwise remain hidden in large datasets.
+
+Overall, the exercise reinforced the importance of structured SOC processes, layered detection mechanisms, and continuous monitoring.
+
+---
+
+## 5.2 Key Lessons Learned
+
+Several important lessons emerged from the BOTSv3 investigation:
+
+- Visibility is essential: without diverse log sources, the attack would have been impossible to trace.
+- SOC tiers must work together: Tier 1 triage, Tier 2 investigation, and Tier 3 threat hunting all play essential roles.
+- Incident handling is iterative: new evidence often requires revisiting earlier assumptions.
+- Documentation and reporting matter: clear notes, screenshots, and queries support escalation and knowledge transfer.
+- Automation improves efficiency: many detection gaps could be reduced with automated correlation rules and alerting.
+
+These lessons reflect real‑world SOC challenges and emphasise the need for continuous improvement.
+
+---
+
+## 5.3 SOC Strategy Implications
+
+The BOTSv3 exercise highlights several strategic improvements that would strengthen SOC operations:
+
+### Enhance Detection Capabilities
+- Implement correlation rules for suspicious OneDrive uploads.
+- Improve detection of abnormal process execution.
+- Strengthen monitoring of new user creation and privilege escalation.
+- Deploy behavioural analytics for unusual login patterns.
+
+### Improve Response Processes
+- Faster isolation of compromised endpoints.
+- Automated disabling of suspicious accounts.
+- Clearer escalation paths between SOC tiers.
+- Regular tabletop exercises to improve readiness.
+
+### Strengthen Preventive Controls
+- Advanced phishing protection.
+- Mandatory multi‑factor authentication.
+- Endpoint hardening and application control.
+- Regular security awareness training.
+
+### Increase SOC Maturity
+- Develop threat hunting playbooks.
+- Integrate threat intelligence feeds.
+- Expand log coverage across cloud and on‑prem systems.
+- Conduct regular post‑incident reviews.
+
+These improvements would significantly reduce the likelihood and impact of similar attacks in a real environment.
+## 5.4 References
+
+[1] Splunk, “Boss of the SOC v3 (BOTSv3) Dataset,” GitHub Repository, 2025.  
+
+[2] Splunk, “Search Processing Language (SPL) Documentation,” Splunk Docs, 2025.  
+
+[3] MITRE Corporation, “MITRE ATT&CK Framework: Enterprise Matrix,” MITRE, 2025.  
+
+[4] NIST, “Computer Security Incident Handling Guide,” NIST Special Publication 800‑61 Revision 2, 2024.  
+
+[5] NIST, “Guide to Intrusion Detection and Prevention Systems (IDPS),” NIST SP 800‑94, 2023.  
+
+[6] UK National Cyber Security Centre (NCSC), “Security Operations Centre (SOC) Guidance,” NCSC, 2025.  
+
+[7] Amazon Web Services, “AWS CloudTrail Logging and Monitoring,” AWS Documentation, 2025.  
+
+[8] Microsoft, “Azure Active Directory Sign‑In Logs,” Microsoft Learn Documentation, 2025.  
+
+[9] Sysinternals, “Sysmon System Monitoring Tool,” Microsoft Sysinternals Documentation, 2025.  
+
+[10] Palo Alto Networks Unit 42, “Threat Intelligence Report: Malware Trends,” Unit 42, 2024.  
