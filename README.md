@@ -136,8 +136,33 @@ Steps:
 
 ## 3.3 Validation  
 I validated ingestion by running:
+# Task 6: Pivoting Back to Endpoint Events — Methodology and Findings
 
-```spl
+This task involved investigating malicious activity across endpoints and cloud services using **Splunk**. Below is a complete summary and methodology for each question.
+
+---
+
+## **Quick Summary of Findings**
+
+| Question | Answer |
+|----------|--------|
+| 6.1 User Agent String | **Mozilla/5.0 (X11; U; Linux i686; ko-KP; rv: 19.1br) Gecko/20130508 Fedora/1.9.1-2.5.rs3.0 NaenaraBrowser/3.5b4** |
+| 6.2 Macro-Enabled Attachment | **Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm** |
+| 6.3 Executable Embedded | **HxTsr.exe** |
+| 6.4 Password for Linux User | **ilovedavidverve** |
+| 6.5 Name of Compromised User | **svcvnc** |
+| 6.6 Groups Assigned | **administrators,user** |
+| 6.7 Process ID on Leet Port | **14356** |
+| 6.8 MD5 of Network Scan File | **586EF56F4D8963DD546163AC31C865D** |
+
+
+index=botsv3 sourcetype=ms:o365:management Workload=OneDrive Operation=FileUploaded
+| table _time UserAgent user src_ip Operation object
+| sort by +_time
+
+Macro-Enabled Attachment Name
+
+
 index=botsv3 | stats count by sourcetype
 
 ## 5.1 Conclusion
@@ -218,3 +243,122 @@ These improvements would significantly reduce the likelihood and impact of simil
 [9] Sysinternals, “Sysmon System Monitoring Tool,” Microsoft Sysinternals Documentation, 2025.  
 
 [10] Palo Alto Networks Unit 42, “Threat Intelligence Report: Malware Trends,” Unit 42, 2024.  
+6.2 Macro-Enabled Attachment Name
+
+Answer:
+Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm
+
+Method:
+
+Queried stream:smtp sourcetype for email alerts flagged as malicious.
+
+Ran query with keyword *alert*:
+
+index=botsv3 sourcetype=stream:smtp *alert*
+
+
+Retrieved subject and attach_content_decoded_md5_hash{} fields.
+
+Decoded the attachment using CyberChef to reveal the macro-enabled file.
+
+6.3 Executable Embedded in the Malware
+
+Answer:
+HxTsr.exe
+
+Method:
+
+Queried Windows Sysmon logs for evidence of .xlsm macro execution.
+
+Splunk query:
+
+index=botsv3 sourcetype=XmlWinEventLog:Microsoft-Windows-Sysmon/Operational *xlsm* 
+| sort by +_time
+
+
+Found the embedded executable in the logs.
+
+6.4 Password for the Created Linux User
+
+Answer:
+ilovedavidverve
+
+Method:
+
+Used osquery logs on Linux host hoth to monitor user creation commands.
+
+Splunk query:
+
+index=botsv3 host=hoth (adduser OR useradd)
+
+
+Identified the password used for the new account.
+
+6.5 Name of the Compromised User Account
+
+Answer:
+svcvnc
+
+Method:
+
+Queried Windows Security Event logs for new account creation (EventCode=4720).
+
+Splunk query:
+
+index=botsv3 source=wineventlog:security EventCode=4720
+
+
+Extracted the new account username.
+
+6.6 Groups Assigned to the New User
+
+Answer:
+administrators,user
+
+Method:
+
+Queried Windows Security logs for group membership (EventCode=4732) for svcvnc.
+
+Splunk query:
+
+index=botsv3 svcvnc EventCode=4732
+| table Group_Name
+
+
+Found groups Administrators and Users, listed alphabetically and comma-separated.
+
+6.7 Process ID of the Process Listening on “leet” Port
+
+Answer:
+14356
+
+Method:
+
+Queried osquery logs for open ports on Linux host hoth.
+
+Focused on port 1337 (leet).
+
+Splunk query:
+
+index=botsv3 sourcetype=osquery.results host=hoth 1337
+
+
+Found the PID associated with that port.
+
+6.8 MD5 Value of the File Used to Scan the Network
+
+Answer:
+586EF56F4D8963DD546163AC31C865D7
+
+Method:
+
+Queried Sysmon logs for executed processes and hashes.
+
+Focused on hdoor.exe downloaded to FYODOR-L.
+
+Splunk query:
+
+index=botsv3 source=WinEventLog:Microsoft-Windows-Sysmon/Operational host=FYODOR-L Hashes=*  Image="C:\\Windows\\Temp\\hdoor.exe"
+
+
+Retrieved the MD5 hash from the executed file’s log entry.
