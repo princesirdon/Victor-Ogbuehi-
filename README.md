@@ -362,3 +362,5 @@ index=botsv3 source=WinEventLog:Microsoft-Windows-Sysmon/Operational host=FYODOR
 
 
 Retrieved the MD5 hash from the executed file’s log entry.
+this is my video link
+https://1drv.ms/v/c/1ba4b9a4ee714807/IQCkxcz_AR3JR7wOXzc1wXG_Aa367DOKUPwVbbX9wCJcpSQ?e=EuDvRA
